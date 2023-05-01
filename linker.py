@@ -14,5 +14,6 @@ annotations = pd.read_csv(annotation_filepath, sep=annotation_delimiter)
 name_link = annotations[['locusName', 'Best-hit-arabi-name', 'arabi-symbol', 'arabi-defline']]
 
 
+combined_filename = "main_data.csv"
 combined_map = named_genes.set_index('Name').join(name_link.set_index('locusName'))
-print(combined_map.head())
+combined_map.to_csv(combined_filename)
