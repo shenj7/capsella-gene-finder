@@ -1,9 +1,9 @@
 import gff3_parser
 import pandas as pd
-gene_info_filepath = "Crubella_474_v1.1.gene.gff3"
+gene_info_filepath = "data/Crubella_474_v1.1.gene.gff3"
 annotation_delimiter = "	"
-annotation_filepath = "Crubella_474_v1.1.annotation_info.txt"
-combined_filename = "main_data.csv"
+annotation_filepath = "data/Crubella_474_v1.1.annotation_info.txt"
+combined_filename = "data/main_data.csv"
 
 def generate_main_data():
     parsed_gene_info = gff3_parser.parse_gff3(gene_info_filepath, verbose = False, parse_attributes=True)
