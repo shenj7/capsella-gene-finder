@@ -18,6 +18,11 @@ def command_line_parser(main_args):
                         required=True,
                         type=str,
                         help="Output file containing information about related genes")
+    parser.add_argument('-n',
+                        '--name',
+                        default=False,
+                        type=bool,
+                        help="Output only arabdopsis mappings")
     parser.add_argument('-r',
                         '--refresh',
                         default=False,
@@ -29,7 +34,7 @@ def find_related_from_file(file):
     aggregated_data = []
     with open(file, "r") as related_genes:
         for line in related_genes.readlines():
-            split_line = line.strip().split(", ")
+            split_line = line.strip().split(",")
             left = split_line[0]
             right = split_line[1]
             scaffold = split_line[2]
@@ -46,7 +51,10 @@ def main(main_args=None):
         print("Generated main dataset in " + combined_filename)
 
     related_genes = find_related_from_file(args.file)
-    related_genes.to_csv(args.output)
+    if args.name:
+        related_genes = related_genes["Best-hit-arabi-name"].dropna()
+
+    related_genes.to_csv(args.output, index=False)
 
 
 if __name__ == '__main__':
